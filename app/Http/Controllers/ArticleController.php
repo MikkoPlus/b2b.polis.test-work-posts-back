@@ -2,18 +2,23 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class ArticleController extends Controller
 {
-    public function index()
+    public function index(): JsonResponse
     {
-        return Article::all()->makeHidden('updated_at');
+        return response()->json(Article::query()
+                ->latest()
+                ->limit(20)
+                ->get()
+                ->makeHidden('updated_at'));
     }
 
-    public function show($id)
+    public function show(int $id): JsonResponse
     {
-        $article = Article::with('comments')->findOrFail($id);
+        $article = Article::findOrFail($id);
 
         return response()->json([
             'article'  => $article->makeHidden(['comments', 'updated_at']),
@@ -21,14 +26,16 @@ class ArticleController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
-        $request->validate([
+        $validated = $request->validate([
             'title'       => 'required|string|max:255',
             'content'     => 'required|string',
             'author_name' => 'required|string|max:255',
         ]);
-        $article = Article::create($request->only('title', 'content', 'author_name'));
+
+        /** @var array<string, mixed> $validated */
+        $article = Article::create($validated);
         return response()->json($article, 201);
     }
 }
