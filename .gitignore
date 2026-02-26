@@ -9,6 +9,7 @@ yarn-error.log
 # Environment files
 # =========================
 .env
+.env.dev~
 .env.backup
 .env.production
 
