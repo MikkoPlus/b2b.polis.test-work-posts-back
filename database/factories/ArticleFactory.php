@@ -16,10 +16,9 @@ class ArticleFactory extends Factory
     public function definition(): array
     {
         return [
-            'title'   => fake()->sentence(),
-            'content' => fake()->paragraph(),
-            'author'  => fake()->name(),
-            'preview' => fake()->imageUrl(),
+            'title'       => fake()->sentence(),
+            'content'     => fake()->paragraph(),
+            'author_name' => fake()->name(),
         ];
     }
 }
