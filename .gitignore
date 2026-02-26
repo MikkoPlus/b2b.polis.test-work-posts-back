@@ -12,6 +12,7 @@ yarn-error.log
 .env.dev~
 .env.backup
 .env.production
+!.env.example
 
 # =========================
 # Dependency directories
