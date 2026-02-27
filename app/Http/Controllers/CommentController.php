@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\Article;
@@ -11,12 +12,13 @@ class CommentController extends Controller
     {
         $validated = $request->validate([
             'author_name' => 'required|string|max:255',
-            'content'     => 'required|string',
+            'content' => 'required|string',
         ]);
         $article = Article::findOrFail($articleId);
 
         /** @var array<string, mixed> $validated */
         $comment = $article->comments()->create($validated);
+
         return response()->json($comment, 201);
     }
 }
