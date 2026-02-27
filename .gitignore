@@ -52,6 +52,7 @@ yarn-error.log
 .phpactor.json
 .phpunit.result.cache
 /.phpunit.cache
+.migrated
 
 # =========================
 # OS files
